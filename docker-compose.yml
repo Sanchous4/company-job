@@ -1,0 +1,19 @@
+# docker-compose.yml
+# Этот файл необходим для установки и поднятия докер образов:
+# - postgres sql (17.0)
+
+services:
+  postgres:
+    image: postgres:17.0
+    container_name: company_job_postgres_db
+    environment:
+      POSTGRES_USER: company_job_user
+      POSTGRES_PASSWORD: company_job_password
+      POSTGRES_DB: company_job_database
+    ports:
+      - "5430:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
