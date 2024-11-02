@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: sani
+      changes:
+        - createTable:
+            tableName: companies
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    check: "TRIM(name) <> ''"
+              - column:
+                  name: imgUrl
+                  type: TEXT
+                  constraints:
+                    nullable: false
+                    check: "TRIM(imgUrl) <> ''"
+              - column:
+                  name: imgDescription
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    check: "TRIM(imgDescription) <> ''"
+      rollback:
+        - dropTable:
+            tableName: companies
+            cascadeConstraints: true

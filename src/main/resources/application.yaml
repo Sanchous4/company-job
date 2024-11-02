@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: company-job
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5430/company_job_database
+    username: company_job_user
+    password: company_job_password
+
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase-migrations/changelog-master.yaml
+    url: jdbc:postgresql://localhost:5430/company_job_database
+    user: company_job_user
+    password: company_job_password
