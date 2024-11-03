@@ -1,0 +1,29 @@
+# Inserts a sample company record ("Sberbank")
+# into the "companies" table, ensuring no duplicate entry
+# exists before adding
+
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: sani
+      preConditions:
+        - sqlCheck:
+            expectedResult: 0
+            sql: "SELECT COUNT(*) FROM companies WHERE name = 'Sberbank'"
+      changes:
+        - insert:
+            tableName: companies
+            columns:
+              - column:
+                  name: name
+                  value: "Sberbank"
+              - column:
+                  name: imgUrl
+                  value: "https://companieslogo.com/img/orig/SBER.ME-10de1f5f.png?t=1720244493"
+              - column:
+                  name: imgDescription
+                  value: "an image of Sberbank logo"
+      rollback:
+        - delete:
+            tableName: companies
+            where: "name = 'Sberbank'"

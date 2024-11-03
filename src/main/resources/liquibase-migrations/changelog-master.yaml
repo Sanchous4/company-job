@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - includeAll:
+      path: liquibase-migrations/companies
+  - includeAll:
+      path: liquibase-migrations/jobs

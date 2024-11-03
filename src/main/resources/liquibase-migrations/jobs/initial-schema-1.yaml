@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: sani
+      changes:
+        - sql:
+            splitStatements: true
+            sql: "CREATE TYPE JOB_STATUS AS ENUM ('OPENED', 'CLOSED');"
+        - createTable:
+            tableName: jobs
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: company_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_jobs_companies
+                    references: companies(id)
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    check: "TRIM(title) <> ''"
+              - column:
+                  name: status
+                  type: JOB_STATUS
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: jobs
+        - sql:
+            sql: "DROP TYPE JOB_STATUS;"
