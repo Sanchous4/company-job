@@ -28,6 +28,14 @@
 	</scm>
 	<properties>
 		<java.version>23</java.version>
+		<!-- Liquibase Properties -->
+		<liquibase.changeLog>src/main/resources/liquibase-migrations/changelog-master.yaml</liquibase.changeLog>
+		<liquibase.url>jdbc:postgresql://localhost:5430/company_job_database</liquibase.url>
+		<liquibase.user>company_job_user</liquibase.user>
+		<liquibase.password>company_job_password</liquibase.password>
+		<liquibase.driver>org.postgresql.Driver</liquibase.driver>
+		<liquibase.defaultSchemaName>public</liquibase.defaultSchemaName>
+		<liquibase.contexts>development,test</liquibase.contexts>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -96,6 +104,21 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>4.29.2</version>
+				<configuration>
+					<changeLogFile>${liquibase.changeLog}</changeLogFile>
+					<url>${liquibase.url}</url>
+					<username>${liquibase.user}</username>
+					<password>${liquibase.password}</password>
+					<driver>${liquibase.driver}</driver>
+					<defaultSchemaName>${liquibase.defaultSchemaName}</defaultSchemaName>
+					<contexts>${liquibase.contexts}</contexts>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1,3 +1,5 @@
+# Creates initial mvp table "companies"
+
 databaseChangeLog:
   - changeSet:
       id: 1

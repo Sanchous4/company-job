@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: sani
+      preConditions:
+        - sqlCheck:
+            expectedResult: 1
+            sql: "SELECT COUNT(*) FROM companies WHERE name = 'Sberbank'"
+      changes:
+        - insert:
+            tableName: jobs
+            columns:
+              - column:
+                  name: company_id
+                  valueComputed: "(SELECT id FROM companies WHERE name = 'Sberbank' LIMIT 1)"
+              - column:
+                  name: title
+                  value: "Analysts"
+              - column:
+                  name: status
+                  value: "OPENED"
+      rollback:
+        - delete:
+            tableName: jobs
+            where: "title = 'Analysts' AND company_id = (SELECT id FROM companies WHERE name = 'Sberbank' LIMIT 1)"
